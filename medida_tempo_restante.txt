@@ -1,17 +1,19 @@
 Próxima Corrida = 
+VAR AnoMax = YEAR(MAX(dCalendarioCorridas[date]))
+VAR Texto = "Próxima corrida de " & AnoMax & ": "
 VAR Dias =
 CALCULATE(
     DATEDIFF(
         TODAY(),
-        MIN(dCorridas[date]),
+        MIN(dCalendarioCorridas[date]),
         DAY
     ),
-    dCorridas[date] >= TODAY()
+    dCalendarioCorridas[date] >= TODAY()
 )
 RETURN
 SWITCH(
     TRUE(),
-    Dias = 0, "Hoje",
-    Dias = 1, "Amanhã",
-    Dias & " dias"
+    Dias = 0, Texto & "Hoje",
+    Dias = 1, Texto & "Amanhã",
+    Texto & Dias & " dias"
 )
